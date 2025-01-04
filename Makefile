@@ -1,5 +1,7 @@
 all: compile link
 
+run: all exe
+
 compile: 
 	g++ -c main.cpp io.cpp game.cpp player.cpp -Isrc/include
 
@@ -10,4 +12,4 @@ exe:
 	./main
 
 clean:
-	del -f main.exe *.o
+	del -f io.o player.o game.o main.exe *.o 

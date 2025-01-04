@@ -2,10 +2,11 @@
 #define PLAYER_HPP
 
 #include <SFML/Graphics.hpp>
+#include <string>
 #include <iostream>
 #include <optional>
 
-#define R 80.f
+#define R 75.f
 
 class Player{
     public:
@@ -14,6 +15,7 @@ class Player{
         float angle;
 
         Player(float x_, float y_, float angle_);
+        void texture(sf::Texture &texture);
         void draw(sf::RenderWindow &window);
         void update();
 

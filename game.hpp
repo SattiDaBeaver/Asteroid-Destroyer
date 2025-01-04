@@ -5,7 +5,6 @@
 #include <iostream>
 #include <optional>
 
-#define R 75.f
 #define WIDTH 800
 #define HEIGHT 600
 

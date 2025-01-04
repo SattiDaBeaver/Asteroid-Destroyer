@@ -1,4 +1,6 @@
 #include "game.hpp"
+#include "io.hpp"
+#include "player.hpp"
 
 void Game::game_loop(){
     sf::RenderWindow window(sf::VideoMode({WIDTH, HEIGHT}), "Damn Bruh!");
@@ -6,14 +8,14 @@ void Game::game_loop(){
     window.setFramerateLimit(60);
     //IO::set_fps(window, argc, argv);
 
-    sf::CircleShape shape(R, 3);
-    //shape.setFillColor(sf::Color(255,100,100,255));
-    shape.setOrigin({R, R});
-    shape.setPosition({WIDTH/2, HEIGHT/2});
+    Player player(WIDTH/2, HEIGHT/2, 90);
 
-    sf::Texture texture("bhaiya.png");
+    sf::Texture texture_player("bhaiya_flipped.png", false, sf::IntRect({0, 0}, {150, 150}));
 
-    shape.setTexture(&texture);
+    player.texture(texture_player);
+
+    long i = 0;
+
     while (window.isOpen()){
         // Process all Tasks since the last frame
         while (const std::optional event = window.pollEvent())
@@ -28,11 +30,13 @@ void Game::game_loop(){
             }
         }
 
+        player.shape.rotate(sf::degrees(1.f));
+
         // Clear window
         window.clear(sf::Color(50, 50, 50, 255));
 
         // Do drawing stuff
-        window.draw(shape);
+        window.draw(player.shape);
 
         // Draw the Current Frame
         window.display();
