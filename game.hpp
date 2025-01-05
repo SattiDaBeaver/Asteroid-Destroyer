@@ -5,8 +5,8 @@
 #include <iostream>
 #include <optional>
 
-#define WIDTH 800
-#define HEIGHT 600
+#define WIDTH 1600
+#define HEIGHT 900
 
 class Game{
     public:

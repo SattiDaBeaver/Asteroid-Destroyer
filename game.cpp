@@ -13,18 +13,22 @@ void Game::game_loop(){
     sf::Texture texture_player("bhaiya_flipped.png", false, sf::IntRect({0, 0}, {150, 150}));
 
     player.texture(texture_player);
+    player.scale({0.4, 0.5});
 
     long i = 0;
 
     sf::Clock clock;
 
+    window.setKeyRepeatEnabled(true);
+
     while (window.isOpen()){
         // Process all Tasks since the last frame
-        IO::key_pressed(player, window);
+        float time = IO::delta_time(clock);
 
-        player.shape.rotate(sf::degrees(1.f));
+        IO::key_pressed(player, window, time);
+        player.update(time);
 
-        std::cout << IO::delta_time(clock) << std::endl;
+        player.wrap(window);
 
         // Clear window
         window.clear(sf::Color(50, 50, 50, 255));
