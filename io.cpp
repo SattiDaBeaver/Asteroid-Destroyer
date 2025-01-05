@@ -1,5 +1,6 @@
 #include "io.hpp"
 
+
 void IO::set_fps(sf::RenderWindow &window, int argc, char* argv[]){
     if (argc == 2){
         int fps = std::stoi(argv[1], 0, 10);
@@ -17,8 +18,8 @@ void IO::key_pressed(Player &player, sf::RenderWindow &window, float time){
         if (event->is<sf::Event::Closed>()){
             window.close();
         }
-        else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()){
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
                 window.close();
 
             else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
@@ -59,11 +60,9 @@ void IO::key_pressed(Player &player, sf::RenderWindow &window, float time){
                 }
 
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
-                    std::cout << "Space is Pressed" << std::endl;
+                    player.make_projectile();
                 }
             }     
-        }
-    }
 }
 
 float IO::delta_time(sf::Clock &clock){

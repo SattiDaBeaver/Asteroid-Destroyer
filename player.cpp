@@ -9,6 +9,9 @@
 #define MAX_ANG_VEL 200
 #define MIN_ANG_VEL 30
 
+
+// Player Functions
+
 Player::Player(float x_, float y_, float angle_){
     shape = sf::CircleShape(R, 3);
     x = x_; y = y_;
@@ -16,6 +19,8 @@ Player::Player(float x_, float y_, float angle_){
     vel_x = 0;
     vel_y = 0;
     ang_vel = 0;
+    projectiles = nullptr;
+    num = 0;
 
     shape.setOrigin({R, R});
 
@@ -24,6 +29,15 @@ Player::Player(float x_, float y_, float angle_){
     shape.setPosition({x_, y_});
 
     //shape.setFillColor(sf::Color(255,100,100,255));
+}
+
+Player::~Player(){
+    for (int i = 0; i < num; i++){
+        delete projectiles[i];
+        projectiles[i] = nullptr;
+    }
+    delete projectiles;
+    projectiles = nullptr;
 }
 
 void Player::draw(sf::RenderWindow &window){
@@ -120,9 +134,10 @@ void Player::update_ang_velocity(float target_angle, float time){
 
         float dir = diff / std::abs(diff);
 
-        angle += ANG_ACCEL * time * dir;
+        angle += ANG_ACCEL * time * diff / 180 + MIN_ANG_VEL * dir * time;
         if (std::abs(diff) < ANG_ACCEL * time){
             angle = target_angle;
+            //ang_vel = 0;
         }
         //std::cout << target_angle << std::endl;
         // if (ang_vel > MAX_ANG_VEL){
@@ -137,3 +152,18 @@ void Player::update_ang_velocity(float target_angle, float time){
         // }
     }
 }
+
+void Player::make_projectile(){
+    projectiles[num] = new Projectile(x, y, angle);
+    num++;
+}
+
+
+
+
+
+
+
+
+
+

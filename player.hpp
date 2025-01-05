@@ -8,6 +8,7 @@
 #include <math.h>
 
 #include "game.hpp"
+#include "projectile.hpp"
 
 #define R 75.f
 
@@ -18,17 +19,20 @@ class Player{
         float vel_x, vel_y;
         float angle;
         float ang_vel;
+        Projectile** projectiles;
+        int num;
 
         Player(float x_, float y_, float angle_);
+        ~Player();
         void texture(sf::Texture &texture);
         void draw(sf::RenderWindow &window);
         void scale(sf::Vector2f vec);
         void update(float time);
 
-
         void wrap(sf::RenderWindow &window);
         void update_velocity(float x_, float y_, float time);
         void update_ang_velocity(float target_angle, float time);
+        void make_projectile();
 };
 
 #endif
