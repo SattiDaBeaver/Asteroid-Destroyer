@@ -16,21 +16,15 @@ void Game::game_loop(){
 
     long i = 0;
 
+    sf::Clock clock;
+
     while (window.isOpen()){
         // Process all Tasks since the last frame
-        while (const std::optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>()){
-                window.close();
-            }
-            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()){
-                if (keyPressed->scancode == sf::Keyboard::Scancode::Escape){
-                    window.close();
-                }
-            }
-        }
+        IO::key_pressed(player, window);
 
         player.shape.rotate(sf::degrees(1.f));
+
+        std::cout << IO::delta_time(clock) << std::endl;
 
         // Clear window
         window.clear(sf::Color(50, 50, 50, 255));
