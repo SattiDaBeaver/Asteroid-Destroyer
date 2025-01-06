@@ -1,11 +1,14 @@
 #include "io.hpp"
 
+#define OUTPUT_SIZE 24
+#define TEXT_X 5
+#define TEXT_Y 5
 
 void IO::set_fps(sf::RenderWindow &window, int argc, char* argv[]){
     if (argc == 2){
         int fps = std::stoi(argv[1], 0, 10);
         std::cout << "FPS: " << fps << std::endl;
-        window.setFramerateLimit(60);
+        window.setFramerateLimit(fps);
     }
     else {
         std::cout << "VSync Enabled" << std::endl;
@@ -68,6 +71,32 @@ void IO::key_pressed(Player &player, sf::RenderWindow &window, float time){
     }     
 }
 
+void IO::display_score(int score, sf::RenderWindow &window){
+    sf::Font font("inter.ttf");
+    sf::Text text(font);
+    text.setCharacterSize(OUTPUT_SIZE);
+    text.setStyle(sf::Text::Bold);
+
+    std::string s = "Score: " + std::to_string(score);
+
+    text.setString(s);
+    text.setPosition({WIDTH / 2.f - 40, TEXT_Y});
+    window.draw(text);
+}
+
+void IO::display_fps(int fps, sf::RenderWindow &window){
+    sf::Font font("inter.ttf");
+    sf::Text text(font);
+    text.setCharacterSize(OUTPUT_SIZE);
+    text.setStyle(sf::Text::Bold);
+
+    std::string s = "FPS: " + std::to_string(fps);
+
+    text.setString(s);
+    text.setPosition({TEXT_X, TEXT_Y});
+    window.draw(text);
+}
+
 float IO::delta_time(sf::Clock &clock){
-    return clock.restart().asMilliseconds();
+    return clock.restart().asMicroseconds();
 }

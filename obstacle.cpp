@@ -10,17 +10,19 @@ Obstacle::Obstacle(int type_, float x_, float y_, float vel_x_, float vel_y_, sf
     if (type == 1){
         shape = sf::CircleShape(RAD_1);
         shape.setOrigin({RAD_1, RAD_1});
-        shape.setPosition({x, y});
         //sf::Texture texture_satti("Satti1.png");
+        shape.setOutlineColor(sf::Color(255, 0, 0, 255));
         shape.setTexture(&texture_satti1);
     }
     else if (type == 2){
         shape = sf::CircleShape(RAD_2);
         shape.setOrigin({RAD_2, RAD_2});
-        shape.setPosition({x, y});
         //sf::Texture texture_satti("Satti2.png");
+        shape.setOutlineColor(sf::Color(255, 127, 0, 255));
         shape.setTexture(&texture_satti2);
     }
+    shape.setPosition({x, y});
+    shape.setOutlineThickness(2);
 }
 
 bool Obstacle::collision(Player &player){

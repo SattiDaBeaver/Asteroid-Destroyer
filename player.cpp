@@ -24,6 +24,8 @@ Player::Player(float x_, float y_, float angle_){
     projectile_time = 0;
 
     shape.setOrigin({R, R});
+    shape.setOutlineColor(sf::Color(30, 200, 200, 255));
+    shape.setOutlineThickness(2);
 
     shape.setRotation(sf::degrees(angle_));
 

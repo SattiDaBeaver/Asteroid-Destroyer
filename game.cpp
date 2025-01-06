@@ -11,8 +11,8 @@
 
 //void update_obstacles(std::vector<std::unique_ptr<Obstacle>> &obstacles, float time, Player player);
 
-void Game::game_loop(){
-    sf::RenderWindow window(sf::VideoMode({WIDTH, HEIGHT}), "Damn Bruh!");
+void Game::game_loop(int argc, char* argv[]){
+    sf::RenderWindow window(sf::VideoMode({WIDTH, HEIGHT}), "SATTI DESTROYER!!!");
 
     sf::Clock game_clock;
 
@@ -29,8 +29,13 @@ void Game::game_loop(){
     std:: uniform_int_distribution dis_y(MARGIN, HEIGHT- MARGIN);
     std:: uniform_int_distribution dis_v(-MAX_VEL_OBS, MAX_VEL_OBS);
 
-    window.setFramerateLimit(60);
-    //IO::set_fps(window, argc, argv);
+    int score = 0;
+    int count = 0;
+    float fps = 0;
+
+    //window.setFramerateLimit(240);
+    //window.setVerticalSyncEnabled(true);
+    IO::set_fps(window, argc, argv);
 
     sf::Texture texture_player("bhaiya_flipped.png", false, sf::IntRect({0, 0}, {150, 150}));
     sf::Texture texture_satti1("Satti1.png");
@@ -52,7 +57,7 @@ void Game::game_loop(){
 
     while (window.isOpen()){
         // Process all Tasks since the last frame
-        float time = IO::delta_time(game_clock);
+        float time = IO::delta_time(game_clock) / 1000;
 
         player.update_projectile_time(time);
 
@@ -88,6 +93,7 @@ void Game::game_loop(){
                 obstacles[i]->shape.setPosition({x, y});
     }
             else if (obstacles[i]->collision(player)){
+                score++;
                 if (obstacles[i]->type == 1){
                     float vel_x = obstacles[i]->vel_x;
                     float vel_y = obstacles[i]->vel_y;
@@ -128,11 +134,22 @@ void Game::game_loop(){
 
         player.draw(window);
 
+        IO::display_score(score, window);
+
+        if (count > 10){
+            count = 0;
+            fps = 1000.f / time;
+        }
+        else{
+            count++;
+        }
+        IO::display_fps(fps, window);
+
         // Draw the Current Frame
         window.display();
 
         // Debug
-        std::cout << obstacles.size() << std::endl;
+        //std::cout << obstacles.size() << std::endl;
     }
     return;
 }

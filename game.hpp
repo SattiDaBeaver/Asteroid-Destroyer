@@ -13,7 +13,7 @@
 
 class Game{
     public:
-        static void game_loop();
+        static void game_loop(int argc, char* argv[]);
 };
 
 #endif
