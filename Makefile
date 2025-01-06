@@ -3,10 +3,10 @@ all: compile link
 run: all exe
 
 compile: 
-	g++ -c main.cpp io.cpp game.cpp player.cpp projectile.cpp -Isrc/include
+	g++ -c main.cpp io.cpp game.cpp player.cpp projectile.cpp obstacle.cpp -Isrc/include 
 
 link : 
-	g++ main.o io.o game.o player.o projectile.o -o main -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+	g++ main.o io.o game.o player.o projectile.o obstacle.o -o main -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
 
 exe:
 	./main

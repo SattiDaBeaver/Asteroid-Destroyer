@@ -4,6 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <optional>
+#include <vector>
+#include <memory>
+#include <random>
 
 #define WIDTH 1600
 #define HEIGHT 900

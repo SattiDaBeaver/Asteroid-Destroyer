@@ -1,6 +1,6 @@
 #include "projectile.hpp"
 
-#define PROJ_VEL 500
+#define PROJ_VEL 700
 #define CONVERT 0.01745
 #define R 75.f
 #define DISP 15
