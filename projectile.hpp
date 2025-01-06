@@ -7,8 +7,8 @@
 #include <optional>
 #include <string>
 
-#define SCALE_X 0.4
-#define SCALE_Y 0.5
+#define SCALE_X 0.7
+#define SCALE_Y 0.8
 
 class Projectile {
     public:

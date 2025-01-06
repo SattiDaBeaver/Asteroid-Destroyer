@@ -33,6 +33,12 @@ void Game::game_loop(){
     //IO::set_fps(window, argc, argv);
 
     sf::Texture texture_player("bhaiya_flipped.png", false, sf::IntRect({0, 0}, {150, 150}));
+    sf::Texture texture_satti1("Satti1.png");
+    sf::Texture texture_satti2("Satti2.png");
+
+    texture_player.setSmooth(true);
+    texture_satti1.setSmooth(true);
+    texture_satti2.setSmooth(true);
 
     player.texture(texture_player);
     player.scale({SCALE_X, SCALE_Y});
@@ -40,8 +46,8 @@ void Game::game_loop(){
     window.setKeyRepeatEnabled(false);
 
     // TEST
-    obstacles.push_back(std::make_unique<Obstacle>(1, 200, 200, 50, 20));
-    obstacles.push_back(std::make_unique<Obstacle>(2, 700, 200, -50, 20));
+    obstacles.push_back(std::make_unique<Obstacle>(1, 200, 200, 50, 20, texture_satti1, texture_satti2));
+    obstacles.push_back(std::make_unique<Obstacle>(2, 700, 200, -50, 20, texture_satti1, texture_satti2));
     // ~TEST
 
     while (window.isOpen()){
@@ -87,8 +93,8 @@ void Game::game_loop(){
                     float vel_y = obstacles[i]->vel_y;
                     obstacles.erase(obstacles.begin() + i);
 
-                    obstacles.push_back(std::make_unique<Obstacle>(2, x + vel_y, y + vel_x, vel_y, vel_x));
-                    obstacles.push_back(std::make_unique<Obstacle>(2, x - vel_y, y - vel_x, -vel_y, -vel_x));
+                    obstacles.push_back(std::make_unique<Obstacle>(2, x + vel_y, y + vel_x, vel_y, vel_x, texture_satti1, texture_satti2));
+                    obstacles.push_back(std::make_unique<Obstacle>(2, x - vel_y, y - vel_x, -vel_y, -vel_x, texture_satti1, texture_satti2));
                 }
                 else{
                     obstacles.erase(obstacles.begin() + i);
@@ -108,18 +114,19 @@ void Game::game_loop(){
                 float ry = dis_y(gen);
                 float vx = dis_v(gen);
                 float vy = dis_v(gen);
-                obstacles.push_back(std::make_unique<Obstacle>(t, rx, ry, vx, vy));
+                obstacles.push_back(std::make_unique<Obstacle>(t, rx, ry, vx, vy, texture_satti1, texture_satti2));
             }
         }
 
         // Clear window
         window.clear(sf::Color(50, 50, 50, 255));
 
-        // Do drawing stuff
-        player.draw(window);
+        // Do drawing stuff  
         for (int i = 0; i < obstacles.size(); i++){
             window.draw(obstacles[i]->shape);
         }
+
+        player.draw(window);
 
         // Draw the Current Frame
         window.display();

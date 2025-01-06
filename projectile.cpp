@@ -4,7 +4,7 @@
 #define CONVERT 0.01745
 #define R 75.f
 #define DISP 15
-#define ANGLE_SHIFT -10
+#define ANGLE_SHIFT -13
 
 Projectile::Projectile(float x_, float y_, float angle_) {
     angle = angle_ - 90;
@@ -22,7 +22,7 @@ void Projectile::draw(sf::RenderWindow &window){
     sf::Text text(font);
 
     text.setString("bruh");
-    text.setCharacterSize(12);
+    text.setCharacterSize(16);
     text.setFillColor(sf::Color::White);
     text.setStyle(sf::Text::Bold);
 

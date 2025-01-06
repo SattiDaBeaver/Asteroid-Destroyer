@@ -1,35 +1,27 @@
 #include "obstacle.hpp"
 
-#define RAD_1 100
-#define RAD_2 30
+
 
 #define TOLERANCE 5
 
-Obstacle::Obstacle(int type_, float x_, float y_, float vel_x_, float vel_y_){
+Obstacle::Obstacle(int type_, float x_, float y_, float vel_x_, float vel_y_, sf::Texture &texture_satti1, sf::Texture &texture_satti2){
     type = type_;
     x = x_; y = y_;
     vel_x = vel_x_; vel_y= vel_y_;
 
-    switch (type){
-        case 1: 
-            shape = sf::CircleShape(RAD_1);
-            shape.setOrigin({RAD_1, RAD_1});
-            shape.setPosition({x, y});
-            shape.setFillColor(sf::Color(50, 50, 50, 255));
-            shape.setOutlineThickness(4);
-            //sf::Texture texture("Satti1.png");
-            //shape.setTexture(&texture);
-            break;
-        case 2:
-            shape = sf::CircleShape(RAD_2);
-            shape.setOrigin({RAD_2, RAD_2});
-            shape.setPosition({x, y});
-            shape.setFillColor(sf::Color(50, 50, 50, 255));
-            shape.setOutlineThickness(4);
-            //sf::Texture texture("Satti1.png");
-            //shape.setTexture(&texture);
-            break;
-        default: break;
+    if (type == 1){
+        shape = sf::CircleShape(RAD_1);
+        shape.setOrigin({RAD_1, RAD_1});
+        shape.setPosition({x, y});
+        //sf::Texture texture_satti("Satti1.png");
+        shape.setTexture(&texture_satti1);
+    }
+    else if (type == 2){
+        shape = sf::CircleShape(RAD_2);
+        shape.setOrigin({RAD_2, RAD_2});
+        shape.setPosition({x, y});
+        //sf::Texture texture_satti("Satti2.png");
+        shape.setTexture(&texture_satti2);
     }
 }
 
