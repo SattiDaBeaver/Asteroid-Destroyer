@@ -6,6 +6,8 @@
 #include <iostream>
 #include <optional>
 #include <math.h>
+#include <memory>
+#include <vector>
 
 #include "game.hpp"
 #include "projectile.hpp"
@@ -19,8 +21,8 @@ class Player{
         float vel_x, vel_y;
         float angle;
         float ang_vel;
-        Projectile** projectiles;
-        int num;
+        std::vector<std::unique_ptr<Projectile>> projectiles;
+        float projectile_time;
 
         Player(float x_, float y_, float angle_);
         ~Player();
@@ -33,6 +35,7 @@ class Player{
         void update_velocity(float x_, float y_, float time);
         void update_ang_velocity(float target_angle, float time);
         void make_projectile();
+        void update_projectile_time(float delta_time);
 };
 
 #endif

@@ -5,7 +5,6 @@
 #include <iostream>
 #include <optional>
 
-#include "game.hpp"
 #include "player.hpp"
 
 class IO{

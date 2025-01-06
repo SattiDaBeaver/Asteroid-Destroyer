@@ -9,6 +9,8 @@
 #define MAX_ANG_VEL 200
 #define MIN_ANG_VEL 30
 
+#define MIN_PROJ_TIME 300
+
 
 // Player Functions
 
@@ -19,8 +21,7 @@ Player::Player(float x_, float y_, float angle_){
     vel_x = 0;
     vel_y = 0;
     ang_vel = 0;
-    projectiles = nullptr;
-    num = 0;
+    projectile_time = 0;
 
     shape.setOrigin({R, R});
 
@@ -32,16 +33,14 @@ Player::Player(float x_, float y_, float angle_){
 }
 
 Player::~Player(){
-    for (int i = 0; i < num; i++){
-        delete projectiles[i];
-        projectiles[i] = nullptr;
-    }
-    delete projectiles;
-    projectiles = nullptr;
+    projectiles.clear();
 }
 
 void Player::draw(sf::RenderWindow &window){
     window.draw(shape);
+    for (int i = 0; i < projectiles.size(); i++){
+        projectiles[i]->draw(window);
+    }
 }
 
 void Player::texture(sf::Texture &texture){
@@ -69,7 +68,11 @@ void Player::update(float time){
     shape.setRotation(sf::degrees(angle));
     shape.setPosition({x, y});
 
-    std::cout << angle << std::endl; // REMOVE
+    for (int i = 0; i < projectiles.size(); i++){
+        projectiles[i]->update(time);
+    }
+
+    //std::cout << angle << std::endl; // REMOVE
 }
 
 void Player::wrap(sf::RenderWindow &window){
@@ -154,10 +157,15 @@ void Player::update_ang_velocity(float target_angle, float time){
 }
 
 void Player::make_projectile(){
-    projectiles[num] = new Projectile(x, y, angle);
-    num++;
+    if (projectile_time > MIN_PROJ_TIME){
+        projectiles.push_back(std::make_unique<Projectile>(x, y, angle));
+        projectile_time = 0;
+    }
 }
 
+void Player::update_projectile_time(float delta_time){
+    projectile_time += delta_time;
+}
 
 
 

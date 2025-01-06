@@ -10,7 +10,7 @@ void Game::game_loop(){
     sf::Keyboard::Scancode key;
     bool released = true;
 
-    sf::Clock clock;
+    sf::Clock game_clock;
 
     Player player(WIDTH/2, HEIGHT/2, 90);
 
@@ -20,18 +20,19 @@ void Game::game_loop(){
     sf::Texture texture_player("bhaiya_flipped.png", false, sf::IntRect({0, 0}, {150, 150}));
 
     player.texture(texture_player);
-    player.scale({0.4, 0.5});
+    player.scale({SCALE_X, SCALE_Y});
 
     window.setKeyRepeatEnabled(false);
 
     // TEST
-    Projectile p(100, 100, 50);
 
     // ~TEST
 
     while (window.isOpen()){
         // Process all Tasks since the last frame
-        float time = IO::delta_time(clock);
+        float time = IO::delta_time(game_clock);
+
+        player.update_projectile_time(time);
 
         // Get Key Presses
         IO::key_pressed(player, window, time);
@@ -44,8 +45,7 @@ void Game::game_loop(){
         window.clear(sf::Color(50, 50, 50, 255));
 
         // Do drawing stuff
-        window.draw(player.shape);
-        p.draw(window);
+        player.draw(window);
         // for (int i = 0; i < player.num; i++){
         //     if (player.projectiles[i] != nullptr){
         //         window.draw(player.projectiles[i]->text);

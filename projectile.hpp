@@ -7,6 +7,9 @@
 #include <optional>
 #include <string>
 
+#define SCALE_X 0.4
+#define SCALE_Y 0.5
+
 class Projectile {
     public:
         float x, y;
@@ -16,6 +19,7 @@ class Projectile {
         Projectile(float x_, float y_, float angle_);
         ~Projectile();
         void draw(sf::RenderWindow &window);
+        void update(float time);
 };
 
 #endif
