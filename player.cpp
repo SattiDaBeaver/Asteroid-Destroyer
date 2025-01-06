@@ -70,6 +70,11 @@ void Player::update(float time){
 
     for (int i = 0; i < projectiles.size(); i++){
         projectiles[i]->update(time);
+        float X = projectiles[i]->x;
+        float Y = projectiles[i]->y;
+        if (X < 0 || X > WIDTH || Y < 0 || Y > HEIGHT){
+            projectiles.erase(projectiles.begin() + i);
+        }
     }
 
     //std::cout << angle << std::endl; // REMOVE

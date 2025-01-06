@@ -54,6 +54,9 @@ void Game::game_loop(){
 
         // Draw the Current Frame
         window.display();
+
+        // Debug
+
     }
     return;
 }
