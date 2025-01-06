@@ -1,8 +1,6 @@
 #include "obstacle.hpp"
 
-
-
-#define TOLERANCE 5
+#define TOLERANCE 8
 
 Obstacle::Obstacle(int type_, float x_, float y_, float vel_x_, float vel_y_, sf::Texture &texture_satti1, sf::Texture &texture_satti2){
     type = type_;
